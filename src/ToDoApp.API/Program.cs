@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ToDoApp.API.Data;
+using ToDoApp.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,8 +10,15 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ToDoContext>(options =>
 {
-    options.UseMySql(builder.Configuration.GetConnectionString("mysql"), new MySqlServerVersion("5.7"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("sqlserver"));
 });
+
+builder.Services.AddAutoMapper(options =>
+{
+    options.AddMaps("ToDoApp.API");
+});
+
+builder.Services.AddScoped<IAccountInfoService, AccountInfoService>();
 
 var app = builder.Build();
 

@@ -1,13 +1,11 @@
-﻿using Prism.Dialogs;
+﻿using DryIoc;
+using Prism.Container.DryIoc;
+using Prism.Dialogs;
 using Prism.DryIoc;
 using Prism.Ioc;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
+using ToDoApp.WPF.HttpClients;
 using ToDoApp.WPF.ViewModels;
 using ToDoApp.WPF.Views;
 
@@ -26,6 +24,9 @@ namespace ToDoApp.WPF
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterDialog<LoginControl, LoginControlViewModel>();
+
+            //请求
+            containerRegistry.GetContainer().Register<HttpRestClient>(made: Parameters.Of.Type<string>(serviceKey: "webUrl"));
         }
 
         /// <summary>
