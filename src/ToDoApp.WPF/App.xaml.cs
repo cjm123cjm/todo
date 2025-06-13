@@ -25,6 +25,11 @@ namespace ToDoApp.WPF
         {
             containerRegistry.RegisterDialog<LoginControl, LoginControlViewModel>();
 
+            containerRegistry.RegisterForNavigation<IndexControl, IndexControlViewModel>("IndexControl");
+            containerRegistry.RegisterForNavigation<ToDoControl, ToDoControlViewModel>("ToDoControl");
+            containerRegistry.RegisterForNavigation<MemoControl, MemoControlViewModel>("MemoControl");
+            containerRegistry.RegisterForNavigation<SettingsControl, SettingsControlViewModel>("SettingsControl");
+
             //请求
             containerRegistry.GetContainer().Register<HttpRestClient>(made: Parameters.Of.Type<string>(serviceKey: "webUrl"));
         }
@@ -32,20 +37,20 @@ namespace ToDoApp.WPF
         /// <summary>
         /// 初始化
         /// </summary>
-        protected override void OnInitialized()
-        {
-            var dialogService = Container.Resolve<IDialogService>();
-            dialogService.ShowDialog("LoginControl", callback =>
-            {
-                if (callback.Result != ButtonResult.OK)
-                {
-                    Environment.Exit(0);
-                }
-                else
-                {
-                    base.OnInitialized();
-                }
-            });
-        }
+        //protected override void OnInitialized()
+        //{
+        //    var dialogService = Container.Resolve<IDialogService>();
+        //    dialogService.ShowDialog("LoginControl", callback =>
+        //    {
+        //        if (callback.Result != ButtonResult.OK)
+        //        {
+        //            Environment.Exit(0);
+        //        }
+        //        else
+        //        {
+        //            base.OnInitialized();
+        //        }
+        //    });
+        //}
     }
 }
