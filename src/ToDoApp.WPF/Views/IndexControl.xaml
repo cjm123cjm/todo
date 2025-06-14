@@ -26,6 +26,20 @@
                     <Border Background="{Binding BackColor}"
                             CornerRadius="10"
                             Margin="10 0">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver"
+                                             Value="True">
+                                        <Setter Property="Effect">
+                                            <Setter.Value>
+                                                <DropShadowEffect Color="#dddddd" ShadowDepth="1" BlurRadius="10" />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
                         <Grid>
                             <StackPanel Margin="20 10">
                                 <materialDesign:PackIcon Margin="15 0"
@@ -93,8 +107,21 @@
                         <materialDesign:PackIcon Kind="Add" />
                     </Button>
                 </DockPanel>
-                    
-                <ListBox></ListBox>
+
+                <ListBox ItemsSource="{Binding ToDoDto}" HorizontalContentAlignment="Stretch" materialDesign:ScrollViewerAssist.BubbleVerticalScroll="True">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel MaxHeight="80" LastChildFill="False">
+                                <ToggleButton DockPanel.Dock="Right" />
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Title}" FontSize="16" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Content}" Opacity="0.5" Margin="0 5"/>
+                                </StackPanel>
+                            </DockPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            
             </DockPanel>
 
             <Border CornerRadius="5"
@@ -119,7 +146,27 @@
                     </Button>
                 </DockPanel>
 
-                <ListBox></ListBox>
+                <ListBox ItemsSource="{Binding MemoInfoDto}"
+                         HorizontalContentAlignment="Stretch"
+                         materialDesign:ScrollViewerAssist.BubbleVerticalScroll="True">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel MaxHeight="80"
+                                       LastChildFill="False">
+                                <ToggleButton DockPanel.Dock="Right" />
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Title}"
+                                               FontSize="16"
+                                               FontWeight="Bold" />
+                                    <TextBlock Text="{Binding Content}"
+                                               Opacity="0.5"
+                                               Margin="0 5" />
+                                </StackPanel>
+                            </DockPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
             </DockPanel>
         </Grid>
     </Grid>

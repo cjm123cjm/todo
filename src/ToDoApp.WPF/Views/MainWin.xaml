@@ -16,7 +16,7 @@
     <WindowChrome.WindowChrome>
         <WindowChrome GlassFrameThickness="-1" />
     </WindowChrome.WindowChrome>
-    <materialDesign:DialogHost DialogTheme="Dark"
+    <materialDesign:DialogHost DialogTheme="Inherit"
                                Identifier="RootDialog"
                                SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}">
 
