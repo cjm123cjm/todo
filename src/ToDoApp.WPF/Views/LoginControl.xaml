@@ -28,6 +28,34 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
+        <Border Grid.ColumnSpan="2"
+                Background="Black"
+                Opacity="0.3"
+                Visibility="{Binding}">
+            <Border Width="100"
+                    Height="100" Background="White" CornerRadius="10">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect Color="#dddddd"
+                                                  ShadowDepth="1"
+                                                  BlurRadius="10" />
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Border.Style>
+                <ProgressBar Margin="16"
+                             Grid.ColumnSpan="2"
+                             HorizontalAlignment="Center"
+                             IsIndeterminate="True"
+                             Style="{StaticResource MaterialDesignCircularProgressBar}"
+                             Value="0" />
+            </Border>
+            
+        </Border>
+        
+
         <Image Source="/Images/login.png" />
 
         <!-- 显示错误提示 -->
