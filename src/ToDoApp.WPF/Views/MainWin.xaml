@@ -10,6 +10,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:materialDesignConverters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        Style="{StaticResource MaterialDesignWindow}"
         Title="MainWin"
         Height="700"
         Width="1200">
@@ -20,7 +21,8 @@
                                Identifier="RootDialog"
                                SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}">
 
-        <materialDesign:DrawerHost x:Name="drawerHost" IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
+        <materialDesign:DrawerHost x:Name="drawerHost"
+                                   IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
 
             <!-- 左侧菜单 -->
             <materialDesign:DrawerHost.LeftDrawerContent>
@@ -41,12 +43,11 @@
 
                     <ListBox ItemsSource="{Binding LeftMenuInfo}"
                              ItemContainerStyle="{StaticResource LeftMenuStyle}"
-                             x:Name="lbMenu"
                              SelectionChanged="lbMenu_SelectionChanged">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectionChanged">
                                 <i:InvokeCommandAction Command="{Binding NavigateCommand}"
-                                                       CommandParameter="{Binding ElementName=lbMenu,Path=SelectedItem}" />
+                                                       CommandParameter="{Binding SelectedItem,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListBox}}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                         <ListBox.ItemTemplate>
@@ -135,7 +136,13 @@
                     </DockPanel>
                 </materialDesign:ColorZone>
 
+                <materialDesign:Snackbar x:Name="MainSnackbar"
+                                         DockPanel.Dock="Top"
+                                         MessageQueue="{materialDesign:MessageQueue}" />
+
                 <ContentControl prism:RegionManager.RegionName="ContentControl" />
+
+                
             </DockPanel>
         </materialDesign:DrawerHost>
     </materialDesign:DialogHost>

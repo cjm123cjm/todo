@@ -34,13 +34,25 @@ namespace ToDoApp.WPF.ViewModels
             _eventAggregator = eventAggregator;
         }
 
+        #region 加载
+        private int visible;
+
+        public int Visible
+        {
+            get { return visible; }
+            set { visible = value; RaisePropertyChanged(); }
+        }
+        #endregion
+
+
         #region 登录命令
         public DelegateCommand LoginCommand { get; set; }
         public async void Login()
         {
+            
             if (string.IsNullOrEmpty(LoginInput.Account) ||
-                string.IsNullOrEmpty(LoginInput.Password)
-                )
+            string.IsNullOrEmpty(LoginInput.Password)
+            )
             {
                 _eventAggregator.GetEvent<MessageEvent>().Publish("请输入用户名/密码");
                 return;
@@ -53,7 +65,9 @@ namespace ToDoApp.WPF.ViewModels
                 Parameters = LoginInput
             };
 
+            Visible = 1;
             var response = await _httpRestClient.Execute(apiRequest);
+            Visible = 0;
             if (response.IsSuccess)
             {
                 _eventAggregator.GetEvent<MessageEvent>().Publish("登录");
@@ -105,7 +119,11 @@ namespace ToDoApp.WPF.ViewModels
                 Parameters = RegisterInput
             };
 
+            Visible = 1;
+
             var response = await _httpRestClient.Execute(apiRequest);
+
+            Visible = 0;
             if (response.IsSuccess)
             {
                 _eventAggregator.GetEvent<MessageEvent>().Publish("注册成功");

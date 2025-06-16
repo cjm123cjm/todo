@@ -25,6 +25,7 @@ namespace ToDoApp.WPF
         {
             containerRegistry.RegisterDialog<LoginControl, LoginControlViewModel>();
 
+            //首页导航
             containerRegistry.RegisterForNavigation<IndexControl, IndexControlViewModel>("IndexControl");
             containerRegistry.RegisterForNavigation<ToDoControl, ToDoControlViewModel>("ToDoControl");
             containerRegistry.RegisterForNavigation<MemoControl, MemoControlViewModel>("MemoControl");
@@ -32,25 +33,35 @@ namespace ToDoApp.WPF
 
             //请求
             containerRegistry.GetContainer().Register<HttpRestClient>(made: Parameters.Of.Type<string>(serviceKey: "webUrl"));
+
+            //设置页面的导航
+            containerRegistry.RegisterForNavigation<PersonalControl, PersonalViewModel>("PersonalControl");
+            containerRegistry.RegisterForNavigation<SystemSettingControl>("SystemSettingControl");
+            containerRegistry.RegisterForNavigation<AbountControl>("AbountControl");
         }
 
         /// <summary>
         /// 初始化
         /// </summary>
-        //protected override void OnInitialized()
-        //{
-        //    var dialogService = Container.Resolve<IDialogService>();
-        //    dialogService.ShowDialog("LoginControl", callback =>
-        //    {
-        //        if (callback.Result != ButtonResult.OK)
-        //        {
-        //            Environment.Exit(0);
-        //        }
-        //        else
-        //        {
-        //            base.OnInitialized();
-        //        }
-        //    });
-        //}
+        protected override void OnInitialized()
+        {
+            var dialogService = Container.Resolve<IDialogService>();
+            dialogService.ShowDialog("LoginControl", callback =>
+            {
+                if (callback.Result != ButtonResult.OK)
+                {
+                    Environment.Exit(0);
+                }
+                else
+                {
+                    var mainViewModel = App.Current.MainWindow.DataContext as MainWinViewModel;
+                    if(mainViewModel != null)
+                    {
+                        mainViewModel.SetDefaultControl();
+                    }
+                    base.OnInitialized();
+                }
+            });
+        }
     }
 }

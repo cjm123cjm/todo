@@ -71,5 +71,15 @@ namespace ToDoApp.WPF.ViewModels
                 _journal.GoForward();
         }
         #endregion
+
+        #region 设置默认页面
+        public void SetDefaultControl()
+        {
+            _regionManager.Regions["ContentControl"].RequestNavigate("IndexControl", callback =>
+            {
+                _journal = callback.Context!.NavigationService.Journal;
+            });
+        }
+        #endregion
     }
 }

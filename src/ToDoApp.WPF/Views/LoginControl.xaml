@@ -10,6 +10,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              Background="White"
              xmlns:pwdExtension="clr-namespace:ToDoApp.WPF.Extensions"
+             xmlns:converter="clr-namespace:ToDoApp.WPF.Converters"
              Width="600"
              Height="350">
     <prism:Dialog.WindowStyle>
@@ -22,6 +23,9 @@
                     Value="WidthAndHeight" />
         </Style>
     </prism:Dialog.WindowStyle>
+    <UserControl.Resources>
+        <converter:IntToVisibilityConverter x:Key="IntToVisibilityConverter" />
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -31,7 +35,7 @@
         <Border Grid.ColumnSpan="2"
                 Background="Black"
                 Opacity="0.3"
-                Visibility="{Binding}">
+                Visibility="{Binding Visible,Converter={StaticResource IntToVisibilityConverter}}">
             <Border Width="100"
                     Height="100" Background="White" CornerRadius="10">
                 <Border.Style>

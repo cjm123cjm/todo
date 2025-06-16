@@ -33,7 +33,9 @@
                                              Value="True">
                                         <Setter Property="Effect">
                                             <Setter.Value>
-                                                <DropShadowEffect Color="#dddddd" ShadowDepth="1" BlurRadius="10" />
+                                                <DropShadowEffect Color="#dddddd"
+                                                                  ShadowDepth="1"
+                                                                  BlurRadius="10" />
                                             </Setter.Value>
                                         </Setter>
                                     </Trigger>
@@ -94,8 +96,10 @@
                     Margin="10 0"
                     Opacity="0.1"
                     Background="#bebebe" />
-            <DockPanel Margin="20 10" LastChildFill="True">
-                <DockPanel DockPanel.Dock="Top" LastChildFill="False">
+            <DockPanel Margin="20 10"
+                       LastChildFill="True">
+                <DockPanel DockPanel.Dock="Top"
+                           LastChildFill="False">
                     <TextBlock Text="待办事项"
                                FontSize="20"
                                DockPanel.Dock="Left" />
@@ -108,27 +112,36 @@
                     </Button>
                 </DockPanel>
 
-                <ListBox ItemsSource="{Binding ToDoDto}" HorizontalContentAlignment="Stretch" materialDesign:ScrollViewerAssist.BubbleVerticalScroll="True">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <DockPanel MaxHeight="80" LastChildFill="False">
-                                <ToggleButton DockPanel.Dock="Right" />
-                                <StackPanel>
-                                    <TextBlock Text="{Binding Title}" FontSize="16" FontWeight="Bold"/>
-                                    <TextBlock Text="{Binding Content}" Opacity="0.5" Margin="0 5"/>
-                                </StackPanel>
-                            </DockPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            
+                <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                    <ListBox ItemsSource="{Binding ToDoDto}"
+                             HorizontalContentAlignment="Stretch">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <DockPanel MaxHeight="80"
+                                           LastChildFill="False">
+                                    <ToggleButton DockPanel.Dock="Right" />
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Title}"
+                                                   FontSize="16"
+                                                   FontWeight="Bold" />
+                                        <TextBlock Text="{Binding Content}"
+                                                   Opacity="0.5"
+                                                   Margin="0 5" />
+                                    </StackPanel>
+                                </DockPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </ScrollViewer>
+                
+
             </DockPanel>
 
             <Border CornerRadius="5"
                     Margin="10 0"
                     Opacity="0.1"
-                    Background="#bebebe" 
-                    Grid.Column="1"/>
+                    Background="#bebebe"
+                    Grid.Column="1" />
             <DockPanel Margin="20 10"
                        LastChildFill="True"
                        Grid.Column="1">
@@ -147,8 +160,7 @@
                 </DockPanel>
 
                 <ListBox ItemsSource="{Binding MemoInfoDto}"
-                         HorizontalContentAlignment="Stretch"
-                         materialDesign:ScrollViewerAssist.BubbleVerticalScroll="True">
+                         HorizontalContentAlignment="Stretch">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <DockPanel MaxHeight="80"
