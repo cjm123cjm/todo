@@ -19,6 +19,7 @@ builder.Services.AddAutoMapper(options =>
 });
 
 builder.Services.AddScoped<IAccountInfoService, AccountInfoService>();
+builder.Services.AddScoped<IToDoService, ToDoService>();
 
 var app = builder.Build();
 

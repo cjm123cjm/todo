@@ -10,5 +10,7 @@ namespace ToDoApp.API.Data
 
         }
         public DbSet<AccountInfo> AccountInfos { get; set; }
+        public DbSet<ToDoInfo> ToDoInfos { get; set; }
+        public DbSet<MemoInfo> MemoInfos { get; set; }
     }
 }

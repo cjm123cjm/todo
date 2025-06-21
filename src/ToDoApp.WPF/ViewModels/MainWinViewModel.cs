@@ -1,7 +1,10 @@
 ﻿using Prism.Commands;
+using Prism.Dialogs;
 using Prism.Mvvm;
+using Prism.Navigation;
 using Prism.Navigation.Regions;
 using System.Collections.Generic;
+using ToDoApp.WPF.Dtos.Outputs;
 using ToDoApp.WPF.Models;
 
 namespace ToDoApp.WPF.ViewModels

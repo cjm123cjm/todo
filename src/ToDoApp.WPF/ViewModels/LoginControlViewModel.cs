@@ -1,11 +1,14 @@
-﻿using Prism.Commands;
+﻿using Newtonsoft.Json;
+using Prism.Commands;
 using Prism.Dialogs;
 using Prism.Events;
 using Prism.Mvvm;
 using System.Windows;
 using ToDoApp.WPF.Dtos.Inputs;
+using ToDoApp.WPF.Dtos.Outputs;
 using ToDoApp.WPF.HttpClients;
 using ToDoApp.WPF.MessageEvents;
+using ToDoApp.WPF.Models;
 
 namespace ToDoApp.WPF.ViewModels
 {
@@ -49,7 +52,7 @@ namespace ToDoApp.WPF.ViewModels
         public DelegateCommand LoginCommand { get; set; }
         public async void Login()
         {
-            
+
             if (string.IsNullOrEmpty(LoginInput.Account) ||
             string.IsNullOrEmpty(LoginInput.Password)
             )
@@ -70,9 +73,18 @@ namespace ToDoApp.WPF.ViewModels
             Visible = 0;
             if (response.IsSuccess)
             {
-                _eventAggregator.GetEvent<MessageEvent>().Publish("登录");
+                _eventAggregator.GetEvent<MessageEvent>().Publish("登录成功");
 
-                RequestClose.Invoke(ButtonResult.OK);
+                //保存用户信息
+                if (response.Result != null)
+                {
+                    var accountDto = JsonConvert.DeserializeObject<AccountInfoDto>(response.Result!.ToString()!);
+
+                    UserStatic.Account = accountDto;
+
+                    RequestClose.Invoke(ButtonResult.OK);
+                }
+
             }
             else
             {

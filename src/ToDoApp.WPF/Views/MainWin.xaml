@@ -18,8 +18,7 @@
         <WindowChrome GlassFrameThickness="-1" />
     </WindowChrome.WindowChrome>
     <materialDesign:DialogHost DialogTheme="Inherit"
-                               Identifier="RootDialog"
-                               SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}">
+                               Identifier="RootDialog">
 
         <materialDesign:DrawerHost x:Name="drawerHost"
                                    IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">

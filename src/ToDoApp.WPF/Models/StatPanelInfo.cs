@@ -1,9 +1,11 @@
-﻿namespace ToDoApp.WPF.Models
+﻿using Prism.Mvvm;
+
+namespace ToDoApp.WPF.Models
 {
     /// <summary>
     /// 首页统计面板信息
     /// </summary>
-    public class StatPanelInfo
+    public class StatPanelInfo : BindableBase
     {
         /// <summary>
         /// 图标
@@ -13,10 +15,19 @@
         /// 标题
         /// </summary>
         public string TitleName { get; set; } = null!;
+
+
         /// <summary>
         /// 结果
         /// </summary>
-        public string Result { get; set; } = null!;
+        private string result;
+
+        public string Result
+        {
+            get { return result; }
+            set { result = value; RaisePropertyChanged(); }
+        }
+
         /// <summary>
         /// 背景颜色
         /// </summary>

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using ToDoApp.API.ApiResponse;
 using ToDoApp.API.Data;
 using ToDoApp.API.Dtos.Inputs;
+using ToDoApp.API.Dtos.Outputs;
 using ToDoApp.API.Models;
 
 namespace ToDoApp.API.Services
@@ -28,12 +29,14 @@ namespace ToDoApp.API.Services
         public async Task<ResponseDto> AccountLoginAsync(LoginInput loginInput)
         {
             var account = await _context.AccountInfos.FirstOrDefaultAsync(t => t.Account == loginInput.Account && t.Password == loginInput.Password);
-            if(account == null)
+            if (account == null)
             {
                 response.IsSuccess = false;
                 response.Message = "账号或密码错误";
                 return response;
             }
+
+            response.Result = _mapper.Map<AccountInfoDto>(account);
 
             return response;
         }

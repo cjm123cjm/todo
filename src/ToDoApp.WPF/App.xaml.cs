@@ -5,9 +5,13 @@ using Prism.DryIoc;
 using Prism.Ioc;
 using System;
 using System.Windows;
+using ToDoApp.WPF.Dtos.Outputs;
 using ToDoApp.WPF.HttpClients;
+using ToDoApp.WPF.Service;
 using ToDoApp.WPF.ViewModels;
+using ToDoApp.WPF.ViewModels.Dialogs;
 using ToDoApp.WPF.Views;
+using ToDoApp.WPF.Views.Dialogs;
 
 namespace ToDoApp.WPF
 {
@@ -38,6 +42,11 @@ namespace ToDoApp.WPF
             containerRegistry.RegisterForNavigation<PersonalControl, PersonalViewModel>("PersonalControl");
             containerRegistry.RegisterForNavigation<SystemSettingControl>("SystemSettingControl");
             containerRegistry.RegisterForNavigation<AbountControl>("AbountControl");
+
+            //对话框
+            containerRegistry.RegisterForNavigation<AddToDoControl, AddToDoViewModel>("AddToDoControl");
+
+            containerRegistry.Register<DialogHostService>();
         }
 
         /// <summary>
@@ -55,7 +64,7 @@ namespace ToDoApp.WPF
                 else
                 {
                     var mainViewModel = App.Current.MainWindow.DataContext as MainWinViewModel;
-                    if(mainViewModel != null)
+                    if (mainViewModel != null)
                     {
                         mainViewModel.SetDefaultControl();
                     }

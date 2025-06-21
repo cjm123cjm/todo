@@ -15,7 +15,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <TextBlock Text="您好,chenjiamei,今天是2025-06-13星期五"
+        <TextBlock Text="{Binding LoginInfo}"
                    FontSize="22"
                    Margin="10 15" />
 
@@ -107,6 +107,7 @@
                             Width="30"
                             VerticalAlignment="Top"
                             Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                            Command="{Binding OpenAddToDoDialogCommand}"
                             DockPanel.Dock="Right">
                         <materialDesign:PackIcon Kind="Add" />
                     </Button>
