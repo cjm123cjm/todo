@@ -27,7 +27,8 @@
                         DockPanel.Dock="Top">
                 <TextBlock Text="状态"
                            VerticalAlignment="Center" />
-                <ComboBox Margin="10 0 0 0">
+                <ComboBox Margin="10 0 0 0"
+                          SelectedIndex="{Binding ToDoDto.status}">
                     <ComboBoxItem>待办</ComboBoxItem>
                     <ComboBoxItem>已办</ComboBoxItem>
                 </ComboBox>
@@ -35,12 +36,14 @@
 
             <TextBox  materialDesign:HintAssist.Hint="待办事项概要"
                       Margin="20 0"
-                      DockPanel.Dock="Top" />
+                      DockPanel.Dock="Top"
+                      Text="{Binding ToDoDto.Title}"/>
 
             <TextBox  materialDesign:HintAssist.Hint="请输入待办内容"
                       Margin="20 0"
                       MinHeight="100"
-                      DockPanel.Dock="Top" />
+                      DockPanel.Dock="Top"
+                      Text="{Binding ToDoDto.Content}"/>
         </DockPanel>
 
         <StackPanel Grid.Row="2"
@@ -49,8 +52,10 @@
                     HorizontalAlignment="Right">
             <Button Content="取消"
                     Margin="0 0 10 0"
-                    Style="{StaticResource MaterialDesignOutlinedButton}" />
-            <Button Content="确定" />
+                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                    Command="{Binding CancelCommand}"/>
+            <Button Content="确定"
+                    Command="{Binding SaveCommand}" />
         </StackPanel>
 
     </Grid>

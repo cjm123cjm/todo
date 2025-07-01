@@ -165,6 +165,15 @@ namespace ToDoApp.WPF.ViewModels
         public async void OpenAddToDoDialog()
         {
             var result = await _dialogHostService.ShowDialog("AddToDoControl", null);
+
+            if (result.Result == ButtonResult.OK)
+            {
+                var todoDto = result.Parameters["AddToDo"] as ToDoDto;
+                if (todoDto != null)
+                {
+
+                }
+            }
         }
 
         #endregion
