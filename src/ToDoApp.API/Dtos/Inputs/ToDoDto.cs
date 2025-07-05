@@ -1,7 +1,7 @@
-﻿namespace ToDoApp.WPF.Dtos.Outputs
+﻿namespace ToDoApp.API.Dtos.Inputs
 {
     /// <summary>
-    /// 待办事项
+    /// 待办事项输出参数
     /// </summary>
     public class ToDoDto
     {
@@ -24,7 +24,6 @@
         /// 状态
         /// </summary>
         public int Status { get; set; }
-
         /// <summary>
         /// 用户id
         /// </summary>

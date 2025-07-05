@@ -5,6 +5,7 @@ using Prism.Mvvm;
 using Prism.Navigation.Regions;
 using System;
 using System.Collections.Generic;
+using System.Windows;
 using ToDoApp.WPF.Dtos.Outputs;
 using ToDoApp.WPF.HttpClients;
 using ToDoApp.WPF.MessageEvents;
@@ -59,15 +60,28 @@ namespace ToDoApp.WPF.ViewModels
             set { toDoDto = value; RaisePropertyChanged(); }
         }
 
-        private void SearchToDo()
+        private async void SearchToDo()
         {
             ToDoDto = new List<ToDoDto>();
-            ToDoDto.Add(new ToDoDto { ToDoId = 1, Title = "学习微服务", Content = "网上学习微服务精度", Status = 0 });
-            ToDoDto.Add(new ToDoDto { ToDoId = 2, Title = "学习WPF", Content = "网上学习微服务精度", Status = 1 });
-            ToDoDto.Add(new ToDoDto { ToDoId = 3, Title = "完成EasyWeChat", Content = "完成EasyWeChat，目前进度是ws连接成功", Status = 0 });
-            ToDoDto.Add(new ToDoDto { ToDoId = 1, Title = "学习微服务", Content = "网上学习微服务精度", Status = 0 });
-            ToDoDto.Add(new ToDoDto { ToDoId = 2, Title = "学习WPF", Content = "网上学习微服务精度", Status = 1 });
-            ToDoDto.Add(new ToDoDto { ToDoId = 3, Title = "完成EasyWeChat", Content = "完成EasyWeChat，目前进度是ws连接成功", Status = 0 });
+
+            ApiRequest apiRequest = new ApiRequest
+            {
+                Route = "/ToDo/GetToDos/" + UserStatic.Account.AccountId,
+                Method = RestSharp.Method.GET
+            };
+
+            ResponseDto response = await _httpRestClient.Execute(apiRequest);
+            if (response.IsSuccess)
+            {
+                ToDoDto = JsonConvert.DeserializeObject<List<ToDoDto>>(response.Result!.ToString()!)!;
+            }
+
+            //ToDoDto.Add(new ToDoDto { ToDoId = 1, Title = "学习微服务", Content = "网上学习微服务精度", Status = 0 });
+            //ToDoDto.Add(new ToDoDto { ToDoId = 2, Title = "学习WPF", Content = "网上学习微服务精度", Status = 1 });
+            //ToDoDto.Add(new ToDoDto { ToDoId = 3, Title = "完成EasyWeChat", Content = "完成EasyWeChat，目前进度是ws连接成功", Status = 0 });
+            //ToDoDto.Add(new ToDoDto { ToDoId = 1, Title = "学习微服务", Content = "网上学习微服务精度", Status = 0 });
+            //ToDoDto.Add(new ToDoDto { ToDoId = 2, Title = "学习WPF", Content = "网上学习微服务精度", Status = 1 });
+            //ToDoDto.Add(new ToDoDto { ToDoId = 3, Title = "完成EasyWeChat", Content = "完成EasyWeChat，目前进度是ws连接成功", Status = 0 });
         }
 
         #endregion
@@ -94,7 +108,6 @@ namespace ToDoApp.WPF.ViewModels
                     StatPanelInfo[2].Result = accountDto.FinishPercent;
 
                 }
-
             }
             else
             {
@@ -171,7 +184,21 @@ namespace ToDoApp.WPF.ViewModels
                 var todoDto = result.Parameters["AddToDo"] as ToDoDto;
                 if (todoDto != null)
                 {
+                    todoDto.AccountId = UserStatic.Account.AccountId;
 
+                    ApiRequest apiRequest = new ApiRequest
+                    {
+                        Method = RestSharp.Method.POST,
+                        Parameters = todoDto,
+                        Route = "/ToDo/AddOrUpdateToDo"
+                    };
+
+                    ResponseDto responseDto = await _httpRestClient.Execute(apiRequest);
+                    if (responseDto.IsSuccess)
+                    {
+                        MessageBox.Show("添加成功", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                        ToDoStatistic();
+                    }
                 }
             }
         }
